@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct WeatherApp: App {
+    var urlHandler = URLHandler()
+    //var networkManager = NetworkServices(delegate: URLHandler)
+    //var homeViewModel = HomeViewModel(networkHandler: networkManager)
     var body: some Scene {
         WindowGroup {
             WeatherHomeView()
+            
         }
     }
 }
