@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CurrentLocationWeather: View {
+    
     var body: some View {
         
         VStack{

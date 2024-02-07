@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct WeatherHomeView: View {
+    var homeViewModel : HomeViewModel?
+    
     var body: some View {
         ZStack{
             Image("dayLight")
