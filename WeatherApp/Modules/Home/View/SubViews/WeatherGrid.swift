@@ -9,17 +9,21 @@ import SwiftUI
 
 struct WeatherGrid: View {
     
+    var homeViewModel : HomeViewModel?
+
     private let adaptiveColumn = [GridItem(.adaptive(minimum: 150))]
     
         var body: some View {
     
                 LazyVGrid(columns: adaptiveColumn, spacing: 50) {
                     
-                    WeatherGridItem(title: "VISIBILITY", subTitle: "String")      //Here is where we use the opacity
+                    WeatherGridItem(title: "VISIBILITY", subTitle: homeViewModel?.getVisibility() ?? "0")      //Here is where we use the opacity
 
-                    WeatherGridItem(title: "HUMIDITY", subTitle: "String")
-                    WeatherGridItem(title: "FEELS LIKE", subTitle: "String")
-                    WeatherGridItem(title: "PRESSURE", subTitle: "String")
+                    WeatherGridItem(title: "HUMIDITY", subTitle: homeViewModel?.getHumidity() ?? "0")
+                    
+                    WeatherGridItem(title: "FEELS LIKE", subTitle:homeViewModel?.getFeelsLike() ?? "0")
+                    
+                    WeatherGridItem(title: "PRESSURE", subTitle: homeViewModel?.getPressure() ?? "0")
                     
                 }//Here is where we use the opacity
 

@@ -9,13 +9,34 @@ import SwiftUI
 
 @main
 struct WeatherApp: App {
-    var urlHandler = URLHandler()
-    //var networkManager = NetworkServices(delegate: URLHandler)
-    //var homeViewModel = HomeViewModel(networkHandler: networkManager)
+    
+    var homeViewModel:HomeViewModel?
+    @StateObject var monitor = Monitor()
+
+    init() {
+        self.prepareHomeViewModel()
+    }
+    
     var body: some Scene {
+        
         WindowGroup {
-            WeatherHomeView()
             
+            if monitor.isConnected(){
+                
+                WeatherHomeView(homeViewModel: self.homeViewModel)
+                
+            }else{
+                ConnectionCheckerView()
+            }
         }
     }
+    
+    mutating func prepareHomeViewModel(){
+        
+        let networkManager = NetworkServices(delegate: URLHandler())
+        let homeViewModel = HomeViewModel(networkHandler: networkManager)
+        self.homeViewModel = homeViewModel
+    }
+    
 }
+

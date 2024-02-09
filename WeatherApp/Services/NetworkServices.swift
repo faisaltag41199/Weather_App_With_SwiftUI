@@ -14,13 +14,16 @@ protocol NetworkServiceDelegate{
 }
 
 class NetworkServices: NetworkServiceDelegate {
+    
     var delegate : URLHandlerProtocol
     
     init(delegate : URLHandlerProtocol){
         self.delegate = delegate
     }
   
+    
     //MARK: - Fetching Data From Api
+    
     func fetchDataFromAPI<T:Codable>(complitionHandler: @escaping (T?,Error?) -> Void) {
         AF.request(delegate.getUrl()).response { data in
             if let myData = data.data {
