@@ -1,9 +1,10 @@
 //
-//  HomeViewModel.swift
+//  WeatherViewModel.swift
 //  WeatherApp
-//
+
+
 //  Created by Menna Setait on 07/02/2024.
-//
+//  Completed By FaisalTageldin And MennaSetait
 
 import Foundation
 class WeatherViewModel{
