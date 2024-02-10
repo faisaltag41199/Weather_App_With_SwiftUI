@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct WeatherApp: App {
     
-    var homeViewModel:HomeViewModel?
+    var homeViewModel:WeatherViewModel?
     @StateObject var monitor = Monitor()
 
     init() {
@@ -23,7 +23,7 @@ struct WeatherApp: App {
             
             if monitor.isConnected(){
                 
-                WeatherHomeView(homeViewModel: self.homeViewModel)
+                 WeatherHomeView(weatherViewModel: self.homeViewModel)
                 
             }else{
                 ConnectionCheckerView()
@@ -34,7 +34,7 @@ struct WeatherApp: App {
     mutating func prepareHomeViewModel(){
         
         let networkManager = NetworkServices(delegate: URLHandler())
-        let homeViewModel = HomeViewModel(networkHandler: networkManager)
+        let homeViewModel = WeatherViewModel(networkHandler: networkManager)
         self.homeViewModel = homeViewModel
     }
     

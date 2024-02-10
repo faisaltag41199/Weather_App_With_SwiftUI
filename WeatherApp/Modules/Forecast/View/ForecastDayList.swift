@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ForecastDayList: View {
     
-    var homeViewModel : HomeViewModel?
+    var weatherViewModel : WeatherViewModel?
     
     var body: some View {
 
@@ -21,17 +21,17 @@ struct ForecastDayList: View {
                     width:UIScreen.screenWidth
                     ,height:UIScreen.screenHeight)
                 .ignoresSafeArea()
-
-            List(homeViewModel?.getForecastDayHours() ?? [] ){ item in
+          
+            List(weatherViewModel?.getForecastDayHours() ?? [] ){ item in
                 
-                ForecastDayRow(hour: homeViewModel?.getForecastDayHour(hour:item) ?? "00:00", imageURL: homeViewModel?.getForecastDayHourConditionImageURL(hour: item) ?? "/" , tempreture: homeViewModel?.getForecastDayHourTempreture(hour: item) ?? "0" )
+                ForecastDayRow(hour: weatherViewModel?.getForecastDayHour(hour:item) ?? "00:00", imageURL: weatherViewModel?.getForecastDayHourConditionImageURL(hour: item) ?? "/" , tempreture: weatherViewModel?.getForecastDayHourTempreture(hour: item) ?? "0" )
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color
                     .white
                     .opacity(0))
                 
-            }.scrollContentBackground(.hidden)
-        
+            }.scrollContentBackground(.hidden).padding(.all,10)
+           
         }
     }
 }

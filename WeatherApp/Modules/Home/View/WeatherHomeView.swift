@@ -9,60 +9,66 @@ import SwiftUI
 
 struct WeatherHomeView: View {
     
-    var homeViewModel : HomeViewModel?
+    var weatherViewModel : WeatherViewModel?
     @State var weatherModel:WeatherModel?
     
-    var body: some View {
     
-        ZStack{
+    var body: some View {
+        
+        NavigationView{
             
-        if weatherModel != nil{
-            
-            ImageHelper.getAppImage()
-                .resizable()
-                .frame(
-                    width:UIScreen.screenWidth
-                    ,height:UIScreen.screenHeight)
-                .ignoresSafeArea()
-            
-            VStack{
+            ZStack{
                 
-                CurrentLocationWeather(homeViewModel: self.homeViewModel)
+                if weatherModel != nil{
+                    
+                    ImageHelper.getAppImage()
+                        .resizable()
+                        .frame(
+                            width:UIScreen.screenWidth
+                            ,height:UIScreen.screenHeight)
+                        .ignoresSafeArea()
+                    
+                    VStack{
+                        
+                        CurrentLocationWeather(weatherViewModel: self.weatherViewModel)
+                        
+                        ForecastList(weatherViewModel: self.weatherViewModel)
+                            .frame(width: 330, height:240)
+                        
+                        WeatherGrid(weatherViewModel: self.weatherViewModel)
+                    }
+                    
+                }else{
+                    
+                    VStack{
+                        ProgressView().tint(.blue).scaleEffect(3)
+                        Text(" ").frame(height:50)
+                        Text("loading data please wait....")
+                    }
+                }
                 
-                ForecastList(homeViewModel: self.homeViewModel)
-                    .frame(width: 330, height:240)
                 
-                WeatherGrid(homeViewModel: self.homeViewModel)
+            }.onAppear{
+                
+                prepareViewModel()
             }
             
             
             
-        }else{
-            
-            VStack{
-                ProgressView().tint(.blue).scaleEffect(3)
-                Text(" ").frame(height:50)
-                Text("loading data please wait....")
-            }
-        }
-            
-        }.onAppear{
-            
-           prepareViewModel()
-        }
+        }        
     }
     
     func prepareViewModel(){
         
-        self.homeViewModel?.bindResultToViewController =
+        self.weatherViewModel?.bindResultToViewController =
         {
             
-            self.weatherModel = homeViewModel?.getWeatherData()
+            self.weatherModel = weatherViewModel?.getWeatherData()
             print("///////////////////////////////")
-            print(self.weatherModel?.location?.name)
+            print(self.weatherModel?.location?.name ?? "no name")
         }
         
-        homeViewModel?.loadWeatherData()
+        weatherViewModel?.loadWeatherData()
     }
 
 }

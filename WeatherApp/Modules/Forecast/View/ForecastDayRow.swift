@@ -19,20 +19,17 @@ struct ForecastDayRow: View {
             
             Text(hour)
                 .font(.system(size: 35, weight: .regular))
-            Text("  ")
-
-            AsyncImage(url: URL(string:imageURL)) { item in
-                
-                item.image?.resizable().frame(width: 50,height: 65)
+                .foregroundColor(ColorHelper.getAppColor())
             
+            Text("  ")
+            AsyncImage(url: URL(string:imageURL)) { item in
+                item.image?.resizable().frame(width: 50,height: 65)
             }
             Text("  ")
-            
             Text(tempreture)
                 .font(.system(size: 35, weight: .regular))
-
+                .foregroundColor(ColorHelper.getAppColor())
         }
-
     }
 }
 

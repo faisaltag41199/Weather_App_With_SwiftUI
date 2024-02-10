@@ -6,7 +6,7 @@
 //
 
 import Foundation
-class HomeViewModel{
+class WeatherViewModel{
     
     var bindResultToViewController : (()->(Void))?
     var networkHandler : NetworkServiceDelegate
@@ -106,16 +106,28 @@ class HomeViewModel{
     }
     
     func setSelectedForecastDay(forecastDayModel:ForecastDayModel){
-        
         selectedForecastDay = forecastDayModel
     }
     
     func getForecastDayHours()->[HourModel]{
+    
+        if self.getForecastDayName(forecastDayModel: selectedForecastDay!) == "Today"{
+            
+            let hoursAfterNow = selectedForecastDay?.hours?.filter({
+                
+                DateHelper.isHourInStringDateAfterNow(stringDate: $0.time ?? "0-0-0 0:0" )
+            
+            }) ?? []
+
+            return hoursAfterNow
+
+        }
         
         return selectedForecastDay?.hours ?? []
+        
     }
     
-    func getForecastDayHour(hour:HourModel) -> String{
+    func getForecastDayHour(hour:HourModel) -> String {
         
         return DateHelper.getHourFromDate(stringDate:hour.time ?? "0-0-0 0:0")
     }

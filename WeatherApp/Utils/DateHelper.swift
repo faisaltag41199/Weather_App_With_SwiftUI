@@ -27,14 +27,34 @@ class DateHelper{
         return hour
     }
     
-    static func getHourFromDate(stringDate:String)->String {
+    static func isHourInStringDateAfterNow(stringDate:String)->Bool
+    {
         
         let date =  DateHelper()
             .convertDateInStringToDate(
                 stringDate: stringDate,
                 strDateFormat:"yyyy-MM-dd HH:mm")
-
-        var hour = Calendar.current.component(.hour, from:date)
+        
+        let hour = Calendar.current.component(.hour, from:date)
+        let nowHour = Calendar.current.component(.hour, from:Date())
+        
+        if(hour >= nowHour){
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    static func getHourFromDate(stringDate:String)->String {
+        
+        var nowHour = Calendar.current.component(.hour, from:Date())
+        
+        let date =  DateHelper()
+            .convertDateInStringToDate(
+                stringDate: stringDate,
+                strDateFormat:"yyyy-MM-dd HH:mm")
+        
+        var hour = Calendar.current.component(.hour, from:date) // hour from theStringDate
         var hourInString = String(hour)
         
         if hour == 12{
@@ -48,11 +68,45 @@ class DateHelper{
             hourInString = hourInString + " " + "AM"
         }
         
+        if nowHour == hour {
+            
+            let dayName = DateHelper().getDateDayNameWithFormat(stringDate: stringDate, format: "yyyy-MM-dd HH:mm")
+            
+            print(dayName)
+            
+            if dayName == "Today"{
+                hourInString = "Now "
+            }
+        }
+        
         return hourInString
     }
     
-    static func getDateDayName(stringDate:String)-> String{
+    private func getDateDayNameWithFormat(stringDate:String,format:String)-> String{
         
+        let date = DateHelper()
+            .convertDateInStringToDate(
+                stringDate: stringDate,
+                strDateFormat:format)
+
+        let newDateFormatter = DateFormatter()
+        newDateFormatter.dateFormat = "EEEE"
+        var dayInWeek = newDateFormatter.string(from: date )
+        let todayName = newDateFormatter.string(from: Date())
+
+
+        if todayName == dayInWeek{
+            dayInWeek = "Today"
+        }else{
+            dayInWeek = String(dayInWeek.prefix(3))
+        }
+
+        return dayInWeek
+
+    }
+
+    
+    static func getDateDayName(stringDate:String)-> String{
         
         let date = DateHelper()
             .convertDateInStringToDate(
@@ -75,7 +129,9 @@ class DateHelper{
 
     }
     
-    func convertDateInStringToDate(stringDate:String,strDateFormat:String)->Date{
+    
+    
+    private func convertDateInStringToDate(stringDate:String,strDateFormat:String)->Date{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = strDateFormat
         return dateFormatter.date(from:stringDate) ?? Date()

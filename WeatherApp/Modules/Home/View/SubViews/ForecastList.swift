@@ -9,33 +9,43 @@ import SwiftUI
 
 struct ForecastList: View {
     
-    var homeViewModel : HomeViewModel?
+    var weatherViewModel : WeatherViewModel?
+    @State private var isActive = false
 
-    var body: some View {
-        NavigationView{
-        List(homeViewModel?.getForecastDays() ?? []){ item in
-            
-            NavigationLink(destination:ForecastDayList(homeViewModel: homeViewModel))  {
-                
-                ForecastRow(day: homeViewModel?.getForecastDayName(forecastDayModel: item) ?? "nodata"
-                            , imageURL: homeViewModel?.getForecastImageURL(forecastDayModel: item) ?? "nodata"
-                            ,lowestTempreture: homeViewModel?.getForecastDayLowTempreture(forecastDayModel: item) ?? "no data"
-                            ,highestTempreture: homeViewModel?.getForecastDayHighTempreture(forecastDayModel: item) ?? "no data")
-                .listRowSeparator(.hidden)
-                .frame(height:40)
-                .listRowBackground(Color
-                    .white
-                    .opacity(0))
-                .onAppear{
-                    
-                    homeViewModel?.setSelectedForecastDay(forecastDayModel: item)
-                }
-            }
-            
-        }.scrollContentBackground(.hidden)
-            .scrollDisabled(true).navigationTitle("3-Days Forecast")
-    }
-        
+     var body: some View {
+      
+         VStack(alignment: .leading, spacing: 0){
+             
+             Text("3-DAY FORECAST")  .foregroundColor(ColorHelper.getAppColor()).offset(x:32,y:20)
+                 .frame(height:5)                .font(.system(size: 15, weight: .regular))
+
+             
+             List(weatherViewModel?.getForecastDays() ?? []){ item in
+                 
+                  NavigationLink(destination:ForecastDayList(weatherViewModel: weatherViewModel),
+                       isActive:$isActive
+                  )  {
+                     
+                     ForecastRow(day: weatherViewModel?.getForecastDayName(forecastDayModel: item) ?? "nodata"
+                                 , imageURL: weatherViewModel?.getForecastImageURL(forecastDayModel: item) ?? "nodata"
+                                 ,lowestTempreture: weatherViewModel?.getForecastDayLowTempreture(forecastDayModel: item) ?? "no data"
+                                 ,highestTempreture: weatherViewModel?.getForecastDayHighTempreture(forecastDayModel: item) ?? "no data")
+                      
+                 }.listRowSeparator(.hidden)
+                     .frame(height:40)
+                     .listRowBackground(Color
+                         .white
+                        .opacity(0)).onTapGesture {
+                            
+                            weatherViewModel?.setSelectedForecastDay(forecastDayModel: item)
+                            
+                            isActive.toggle()
+                        }
+                 
+             }.scrollContentBackground(.hidden)
+                 .scrollDisabled(true)
+         }
+
     }
 }
 

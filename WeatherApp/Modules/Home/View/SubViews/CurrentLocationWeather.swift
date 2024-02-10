@@ -9,35 +9,35 @@ import SwiftUI
 
 struct CurrentLocationWeather: View {
     
-    var homeViewModel : HomeViewModel?
+    var weatherViewModel : WeatherViewModel?
     
     var body: some View {
         
         VStack{
             
-            Text(homeViewModel?.getLocationName() ?? "0")
+            Text(weatherViewModel?.getLocationName() ?? "0")
                 .font(.system(size: 20, weight: .bold))
                 .foregroundColor(ColorHelper.getAppColor())
             
-            Text(homeViewModel?.getTempreture() ?? "0")
+            Text(weatherViewModel?.getTempreture() ?? "0")
                 .font(.system(size: 50, weight: .regular))
                 .foregroundColor(ColorHelper.getAppColor())
             
-            Text(homeViewModel?.getCondition() ?? "no data")
+            Text(weatherViewModel?.getCondition() ?? "no data")
                 .font(.system(size: 20, weight: .regular))
                 .foregroundColor(ColorHelper.getAppColor())
             
             HStack{
                 
-                Text("H :" + (homeViewModel?.getCurrentHighTempreture() ?? "0"))
+                Text("H :" + (weatherViewModel?.getCurrentHighTempreture() ?? "0"))
                      .foregroundColor(ColorHelper.getAppColor())
                 
-                Text("L : " + (homeViewModel?.getCurrentLowTempreture() ?? "0"))
+                Text("L : " + (weatherViewModel?.getCurrentLowTempreture() ?? "0"))
                     .font(.system(size: 20, weight: .regular))
                     .foregroundColor(ColorHelper.getAppColor())
             }
             
-            AsyncImage(url: URL(string:homeViewModel?.getCurrendConditionImageURL() ?? "/")) { item in
+            AsyncImage(url: URL(string:weatherViewModel?.getCurrendConditionImageURL() ?? "/")) { item in
                 
                 item.image?.resizable().frame(width: 70,height: 70).scaleEffect(2)
             

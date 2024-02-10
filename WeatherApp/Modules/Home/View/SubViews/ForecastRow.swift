@@ -19,12 +19,14 @@ struct ForecastRow: View{
             
              Divider()
                 .frame(minHeight: 1.5)
-                   .overlay(Color.black)
+                   .overlay(ColorHelper.getAppColor())
         
             HStack{
                 
                 Text("\(day)")
                     .font(.system(size: 20, weight: .semibold)).frame(width: 60)
+                    .foregroundColor(ColorHelper.getAppColor())
+
 
                 AsyncImage(url: URL(string:imageURL)) { item in
                     
@@ -35,10 +37,16 @@ struct ForecastRow: View{
                 
                 Text(lowestTempreture)
                     .font(.system(size: 22, weight: .semibold))
+                    .foregroundColor(ColorHelper.getAppColor())
+
                 Text("-")
                     .font(.system(size: 22, weight: .semibold))
+                    .foregroundColor(ColorHelper.getAppColor())
+
                 Text(highestTempreture)
                     .font(.system(size: 22, weight: .semibold))
+                    .foregroundColor(ColorHelper.getAppColor())
+
 
 
             }
