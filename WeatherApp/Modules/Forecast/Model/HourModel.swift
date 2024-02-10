@@ -7,12 +7,12 @@
 
 import Foundation
 
-class HourModel : Codable{
+class HourModel : Codable,Identifiable{
     
-      let time: String
-      let tempC: Double
-      let isDay: Int
-      let condition: ConditionModel
+      let time: String?
+      let tempC: Double?
+      let isDay: Int?
+      let condition: ConditionModel?
 
       enum CodingKeys: String, CodingKey{
           case time = "time"

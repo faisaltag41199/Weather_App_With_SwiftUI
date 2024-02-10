@@ -14,11 +14,15 @@ struct WeatherGridItem: View {
     
     var body: some View {
         VStack{
+            
             Text("\(title)")
-                .font(.system(size: 22, weight: .regular)).padding(.bottom,10)
+                .font(.system(size: 13, weight: .regular))
+                .foregroundColor(ColorHelper.getAppColor())
+                .padding(.bottom,10)
         
             Text("\(subTitle)")
-                .font(.system(size: 26, weight: .semibold))
+                .font(.system(size: 30, weight: .semibold))
+                .foregroundColor(ColorHelper.getAppColor())
         }
     }
 }

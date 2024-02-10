@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ForecastDayModel : Codable{
+class ForecastDayModel : Codable,Identifiable{
     
     let date:String?
     let day:DayModel?

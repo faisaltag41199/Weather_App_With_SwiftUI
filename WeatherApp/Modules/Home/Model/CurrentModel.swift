@@ -14,8 +14,8 @@ class CurrentModel : Codable {
     let condition: ConditionModel?
     let pressureMB: Int?
     let humidity: Int?
-    let feelslikeC: Int?
-    let visibilityKM: Int?
+    let feelslikeC: Double?
+    let visibilityKM: Double?
     
     enum CodingKeys: String, CodingKey {
             case lastUpdated = "last_updated"
